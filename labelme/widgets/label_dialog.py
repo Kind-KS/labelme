@@ -182,7 +182,10 @@ class LabelDialog(QtWidgets.QDialog):
     def setFlags(self, flags):
         self.deleteFlags()
         for key in flags:
-            item = QtWidgets.QCheckBox(key, self)
+            if(key.contains('fit/detail')):
+                item = QtWidgets.QCheckBox(key, self)
+            else:
+                item = QtWidgets.QRadioButton(key, self)
             item.setChecked(flags[key])
             self.flagsLayout.addWidget(item)
             item.show()

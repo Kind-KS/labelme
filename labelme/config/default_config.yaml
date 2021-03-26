@@ -1,6 +1,6 @@
-auto_save: false
+auto_save: true
 display_label_popup: true
-store_data: true
+store_data: false
 keep_prev: false
 keep_prev_scale: false
 keep_prev_brightness: false
@@ -31,7 +31,7 @@ shape:
 
 # main
 flag_dock:
-  show: true
+  show: false
   closable: true
   movable: true
   floatable: true

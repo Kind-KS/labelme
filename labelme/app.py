@@ -1049,10 +1049,11 @@ class MainWindow(QtWidgets.QMainWindow):
         shape.label = text
         shape.flags = flags
         shape.group_id = group_id
+        flags_new = [k for k, v in flags.items() if v]
         if shape.group_id is None:
-            item.setText(shape.label)
+            item.setText("{} - {}".format(shape.label, flags_new))
         else:
-            item.setText("{} ({})".format(shape.label, shape.group_id))
+            item.setText("{} ({}) - {}".format(shape.label, shape.group_id, flags_new))
         self.setDirty()
         if not self.uniqLabelList.findItemsByLabel(shape.label):
             item = QtWidgets.QListWidgetItem()
@@ -1100,10 +1101,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.actions.edit.setEnabled(n_selected == 1)
 
     def addLabel(self, shape):
+        flags_new = [k for k, v in flags.items() if v]
         if shape.group_id is None:
-            text = shape.label
+            text = "{} - {}".format(shape.label, flags_new)
         else:
-            text = "{} ({})".format(shape.label, shape.group_id)
+            text = "{} ({}) - {}".format(shape.label, shape.group_id, flags_new)
         label_list_item = LabelListWidgetItem(text, shape)
         self.labelList.addItem(label_list_item)
         if not self.uniqLabelList.findItemsByLabel(shape.label):
