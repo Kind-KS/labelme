@@ -181,13 +181,19 @@ class LabelDialog(QtWidgets.QDialog):
 
     def setFlags(self, flags):
         self.deleteFlags()
+        group_box_name = ''
         for key in flags:
-            if(key.contains('fit/detail')):
-                item = QtWidgets.QCheckBox(key, self)
-            else:
-                item = QtWidgets.QRadioButton(key, self)
+            key_cat_name = key[:key.find(' ')]
+            if(group_box_name != key_cat_name):
+                group_box_name = key_cat_name
+                new_lbx = setFlagsGroupBox(self, group_box_name)
+            # if(key.contains('fit/detail')):
+            #     item = QtWidgets.QCheckBox(key, self)
+            # else:
+            #     item = QtWidgets.QRadioButton(key, self)
+            item = QtWidgets.QRadioButton(key)
             item.setChecked(flags[key])
-            self.flagsLayout.addWidget(item)
+            new_lbx.addWidget(item)
             item.show()
 
     def getFlags(self):
@@ -196,6 +202,14 @@ class LabelDialog(QtWidgets.QDialog):
             item = self.flagsLayout.itemAt(i).widget()
             flags[item.text()] = item.isChecked()
         return flags
+
+    def setFlagsGroupBox(self, group_box_name):
+        group_box = QtWidgets.QGroupBox(self)
+        group_box.setTitle(group_box_name)
+        self.flagsLayout.addWidget(group_box)
+        new_lbx = QtWidgets.QVBoxLayout()
+        group_box.setLayout(new_lbx)
+        return new_lbx
 
     def getGroupId(self):
         group_id = self.edit_group_id.text()
