@@ -517,20 +517,15 @@ class Canvas(QtWidgets.QWidget):
         deleted_shapes = []
         if self.selectedShapes:
             for shape in self.selectedShapes:
-                self.shapes.remove(shape)
-                deleted_shapes.append(shape)
+                if shape in self.shapes:
+                    self.shapes.remove(shape)
+                    deleted_shapes.append(shape)
+                else:
+                    print('not exist Annotations.')
             self.storeShapes()
             self.selectedShapes = []
             self.update()
         return deleted_shapes
-
-    def deleteShape(self, shape):
-        if shape in self.selectedShapes:
-            self.selectedShapes.remove(shape)
-        if shape in self.shapes:
-            self.shapes.remove(shape)
-        self.storeShapes()
-        self.update()
 
     def copySelectedShapes(self):
         if self.selectedShapes:
